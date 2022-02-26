@@ -1,0 +1,62 @@
+<%= form_with(model: user) do |form| %>
+  <% if user.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul>
+        <% user.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :name, style: "display: block" %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.label :date_of_birth, style: "display: block" %>
+    <%= form.date_field :date_of_birth %>
+  </div>
+
+  <div>
+    <%= form.label :phone_number, style: "display: block" %>
+    <%= form.text_field :phone_number %>
+  </div>
+
+  <div>
+    <%= form.label :email, style: "display: block" %>
+    <%= form.text_field :email %>
+  </div>
+
+  <div>
+    <%= form.label :password, style: "display: block" %>
+    <%= form.password_field :password %>
+  </div>
+
+  <div>
+    <%= form.label :password_confirmation, style: "display: block" %>
+    <%= form.password_field :password_confirmation %>
+  </div>
+
+  <div>
+    <%= form.label :user_type, style: "display: block" %>
+    <%= form.select(:user_type, options_for_select([%w[Student student], %w[Instructor instructor], %w[Admin admin]])) %>
+  </div>
+
+  <div>
+    <%= form.label :major, style: "display: block" %>
+    <%= form.text_field :major %>
+  </div>
+
+  <div>
+    <%= form.label :department, style: "display: block" %>
+    <%= form.text_field :department %>
+  </div>
+  <br>
+  <div>
+    <%= form.submit class: "btn btn-dark" %>
+  </div>
+<% end %>

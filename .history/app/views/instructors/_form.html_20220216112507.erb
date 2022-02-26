@@ -1,0 +1,45 @@
+<%= form_with(model: instructor) do |form| %>
+  <% if instructor.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(instructor.errors.count, "error") %> prohibited this instructor from being saved:</h2>
+
+      <ul>
+        <% instructor.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :Name, style: "display: block" %>
+    <%= form.text_field :Name %>
+  </div>
+
+  <div>
+    <%= form.label :Department, style: "display: block" %>
+    <%= form.text_field :Department %>
+  </div>
+
+  <% unless @edit %>
+  <div>
+    <%= form.label :email, style: "display: block" %>
+    <%= form.text_field :email %>
+  </div>
+  <% end %>
+
+  <div>
+    <%= form.label :password, style: "display: block" %>
+    <%= form.password_field :password %>
+  </div>
+
+  <div>
+    <%= form.label :password_confirmation, style: "display: block" %>
+    <%= form.password_field :password_confirmation %>
+  </div>
+  <br>
+
+  <div>
+    <%= form.submit class: "btn btn-secondary" %>
+  </div>
+<% end %>

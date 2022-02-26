@@ -1,0 +1,40 @@
+<p style="color: green"><%= notice %></p>
+
+
+<div id="waitlists">
+    <% if current_user.user_type == "student" %>
+      <h2>Waitlisted Courses</h2>
+      <table class="table table-hover table-sm">
+        <thead>
+        <tr>
+          <th scope="col">Course Code</th>
+          <th scope="col">Drop</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <% @student_waitlists.each do |waitlist| %>
+          <tr>
+            <td><%= link_to course_path(waitlist.course_id), {:class => "link-dark"} do %>
+                <%= Course.where(:id => waitlist.course_id).pluck(:Course_Code).first() %>
+                <input name="course_id" type="hidden" value="<%= params[:course_id ] %>">
+              <% end %>
+            </td>
+            <td> <%= button_to "Drop this course", waitlist, method: :delete %></td>
+          </tr>
+        <%end %>
+        </tbody>
+      </table>
+    <%else %>
+      <% @waitlists.each do |waitlist| %>
+        <%= render waitlist %>
+        <p>
+          <%= link_to "Show this waitlist", waitlist, {:class => "link-dark"} %>
+        </p>
+      <% end %>
+        <%= link_to "New waitlist", new_waitlist_path, {:class => "link-dark"} %>
+    <%end %>
+
+</div>
+
+

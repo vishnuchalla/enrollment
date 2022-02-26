@@ -1,0 +1,84 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Courses</h1>
+
+<div>
+<% if current_user.user_type == "instructor" %>
+<p> List of Your Courses </p><br>
+    <ol>
+      <% @yourcourses.each do |icourse| %>
+          <li>
+            <%= link_to course_path(icourse), {:class => "link-dark"}  do %>
+              <%= icourse.Course_Code %>
+            <% end %>
+          </li>
+      <% end %>
+    </ol>
+  <% end %>
+</div>
+
+<div id="courses">
+<% if current_user.user_type != "instructor" %>
+  <table class="table table-hover table-sm">
+    <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Description</th>
+      <th scope="col">Instructor Name</th>
+      <th scope="col">Weekday 1</th>
+      <th scope="col">Weekday 2</th>
+      <th scope="col">Start time</th>
+      <th scope="col">End time</th>
+      <th scope="col">Course Code</th>
+      <th scope="col">Capacity</th>
+      <th scope="col">Waitlist Capacity</th>
+      <th scope="col">Room</th>
+      <th scope="col">Status</th>
+      <% if current_user.user_type == "student" %>
+        <th scope="col">Enrollment</th>
+      <% else %>
+        <th scope="col">Show</th>
+      <%end %>
+    </tr>
+    </thead>
+    <tbody>
+    <% @courses.each do |course| %>
+      <tr>
+        <td> <%= course.Name %> </td>
+        <td> <%= course.Description %> </td>
+        <td> <%= course.Instructor_Name %> </td>
+        <td> <%= course.Weekday1 %> </td>
+        <td> <%= course.Weekday2 %> </td>
+        <td> <%= course.Start_Time.strftime('%H:%M') %> </td>
+        <td> <%= course.End_Time.strftime('%H:%M') %> </td>
+        <td> <%= course.Course_Code %> </td>
+        <td> <%= course.Capacity %> </td>
+        <td> <%= course.Waitlist_Capacity %></td>
+        <td> <%= course.Room %> </td>
+        <% if course.Capacity > 0 %>
+         <td> <%= "OPEN" %> </td>
+        <%elsif course.Waitlist_Capacity > 0 %>
+          <td> <%= "WAITLIST" %> </td>
+        <% else %>
+          <td> <%= "CLOSED" %> </td>
+        <%end %>
+        <% if current_user.user_type == "student" %>
+          <% if course.Capacity == 0 and course.Waitlist_Capacity > 0  %>
+              <td> <%= link_to "Waitlist", new_waitlist_path(:course_id => course.id), {:class => "link-dark"} %></td>
+            <%else %>
+              <td> <%= link_to_if course.Capacity > 0,  "Enroll", new_enroll_path(:course_id => course.id), {:class => "link-dark"} %></td>
+          <%end %>
+        <% else %>
+          <td><%= link_to "Show this course", course, class: "btn btn-secondary" %></td>
+        <%end %>
+      </tr>
+    <%end %>
+    </tbody>
+  </table>
+  <%end%>
+</div>
+
+<% if current_user.user_type == "admin"  %>
+  <%= link_to "New course", new_course_path, {:class => "link-dark"} %>
+<%end %>
+

@@ -1,0 +1,28 @@
+<h1>Instructors</h1>
+
+<div id="instructors" class="table-responsive">
+  <table class="table table-hover table-sm table-bordered table-striped">
+    <thead class="table-dark">
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Department</th>
+      <th scope="col">Show</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @instructors.each do |instructor| %>
+      <tr>
+        <td> <%= instructor.Name %> </td>
+        <td> <%= instructor.email %> </td>
+        <td> <%= instructor.Department %> </td>
+        <td><%= link_to "Instructor Details", instructor, class: "btn btn-outline-dark" %></td>
+      </tr>
+    <%end %>
+    </tbody>
+  </table>
+</div>
+
+<% if current_user.user_type == "admin" or  current_user.user_type == "instructor" %>
+  <%= link_to "Add Instructor+", new_instructor_path, class: "btn btn-secondary"%>
+<%end %>

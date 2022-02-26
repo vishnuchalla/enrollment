@@ -1,0 +1,13 @@
+<br> </br>
+
+<h4>New enrollment</h4>
+
+<%= render "form", enroll: @enroll %>
+
+<br>
+
+<div>
+<% if current_user.user_type!="instructor" %>
+  <%= link_to "Back to enrolls", enrolls_path, {:class => "link-dark"} %>
+<% end %>
+</div>

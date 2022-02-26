@@ -1,0 +1,41 @@
+<p style="color: green"><%= notice %></p>
+
+<div id="enrolls">
+  <% if current_user.user_type == "student" %>
+    <h2>My Enrollments</h2>
+    <table class="table table-hover table-sm">
+      <thead>
+      <tr>
+        <th scope="col">Course Code</th>
+        <th scope="col">Drop</th>
+      </tr>
+      </thead>
+      <tbody>
+
+      <%@student_enrollments.each do |enrollment| %>
+      <tr>
+        <td><%= link_to course_path(enrollment.course_id), {:class => "link-dark"}  do %>
+            <%= Course.where(:id => enrollment.course_id).pluck(:Course_Code).first() %>
+            <input name="course_id" type="hidden" value="<%= params[:course_id ] %>">
+          <% end %>
+        </td>
+        <td> <%= button_to "Drop this course", enrollment, method: :delete %></td>
+      <%end %>
+      </tr>
+
+      </tbody>
+    </table>
+  <%else %>
+    <% @enrolls.each do |enroll| %>
+      <%= render enroll %>
+      <p>
+        <%= link_to "Show this enroll", enroll, {:class => "link-dark"} %>
+      </p>
+    <% end %>
+
+
+    <%= link_to "New enroll", new_enroll_path, {:class => "link-dark"} %>
+  <%end %>
+</div>
+
+

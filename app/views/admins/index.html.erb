@@ -1,0 +1,8 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @admin %>
+
+<div>
+  <%= link_to "Edit Profile", edit_admin_path(@admin), {:class => "link-dark"} %> |
+  <%= link_to "Back to Home", root_path, {:class => "link-dark"}  %>
+</div>

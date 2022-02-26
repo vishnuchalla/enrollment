@@ -1,0 +1,32 @@
+<p id="notice"><%= notice %></p>
+<h1>Enrollment Portal</h1>
+<p>Manage courses at the snap of your finger</p>
+<% if current_user %>
+  <% if current_user.user_type == "student" %>
+    Logged in as <%= current_user.email %><br>
+    <%= link_to "Courses", courses_path %><br>
+    <%= link_to "Logout", logout_path %>
+  <% elsif current_user.user_type == "instructor" %>
+    Logged in as <%= current_user.email %><br>
+    <%= link_to "New Course", new_course_path %> <br>
+    <p> List of Your Courses </p><br?
+    <ol>
+      <% @yourcourses.each do |icourse| %>
+          <li>
+            <%= link_to course_path(icourse) do %>
+              <%= icourse.Course_Code %>
+            <% end %>
+            <p> student </p>
+          </li>
+      <% end %>
+    </ol>
+    <%= link_to "Logout", logout_path %>
+  <% else current_user.user_type == "admin" %>
+    Logged in as <%= current_user.email %><br>
+    Admin Logic Here<br>
+    <%= link_to "Logout", logout_path %>
+  <% end %>
+<% else %>
+  <%= link_to "Signup", signup_path %> or
+  <%= link_to "Login", login_path %>
+<% end %>

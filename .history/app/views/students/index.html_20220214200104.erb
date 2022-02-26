@@ -1,0 +1,22 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Students</h1>
+
+
+<% if current_user.user_type != "instructor" %>
+<div id="students">
+  <% @students.each do |student| %>
+    <%= render student %>
+    <%= link_to "Show this student", student %>
+  <% end %>
+</div>
+<%end>
+
+
+<% if current_user.user_type == "instructor" %>
+  <div>
+      <p> enroll this student </p>
+      <% end %>
+  </div>
+
+<%= link_to "New student", new_student_path %>

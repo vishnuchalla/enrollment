@@ -1,0 +1,43 @@
+<%= form_with(model: enroll) do |form| %>
+  <% if enroll.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(enroll.errors.count, "error") %> prohibited this enroll from being saved:</h2>
+
+      <ul>
+        <% enroll.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <br>
+  <% if current_user.user_type == "instructor" %>
+    <% @student.each do |stu|%>
+      <li>
+        <%= stu.email %>
+        <%= form.hidden_field :course_id, :value => @course.id %>
+        <%= form.hidden_field :student_id, value: stu.id %>
+      </li>
+    <% end %>  
+    <%= form.text_field :name %>
+    <%= form.submit "enroll" %>  
+  <% end %>
+  <% if current_user.user_type == "student" %>
+    <div class="field">
+      <p> Course Code : <%=@course.Course_Code %> </p>
+      <%= form.hidden_field :course_id, value: @course.id %>
+    </div>
+
+    <div class="field">
+      <p> Student Email : <%= current_user.email %> </p>
+
+      <%= form.hidden_field :student_id, value: @s_id %>
+    </div>
+  <%end %>
+
+  <div>
+    <% if current_user.user_type == "student" %>
+      <%= form.submit %>
+    <% end %>
+  </div>
+<% end %>

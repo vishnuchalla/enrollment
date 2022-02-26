@@ -1,0 +1,13 @@
+<% if current_user.user_type == "instructor" %>
+  <p> Enrolled Students </p>
+    <ol>
+    <% @students.each do |stu| %>
+        <li>
+          <%= link_to student_path(stu.student_id), {:class => "link-dark"}  do %>
+            <%= Student.where(:id => stu.student_id).pluck(:name).first %>
+          <% end %>
+        </li>
+    <% end %>
+  </ol>
+
+  <%end %>

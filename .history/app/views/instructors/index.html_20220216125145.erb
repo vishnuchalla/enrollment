@@ -1,0 +1,18 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Instructors</h1>
+
+<div id="instructors">
+  <% @instructors.each do |instructor| %>
+    <% if current_user.id == instructor.id %>
+    <%= render instructor %>
+    <% end %>
+    <p>
+      <%= link_to "Show this instructor", instructor %>
+    </p>
+  <% end %>
+</div>
+
+<% if current_user.user_type != "instructor" %>
+<%= link_to "New instructor", new_instructor_path %>
+<% end %>

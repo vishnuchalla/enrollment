@@ -1,0 +1,24 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @student %>
+
+<div> 
+  <%= link_to "Edit this student", edit_student_path(@student) %> |
+  <%= link_to "Back to students", students_path %>
+
+  <%= button_to "Destroy this student", @student, method: :delete %>
+<div>
+  <% if current_user.user_type == "student" %>
+  <%else %>
+    <div class="flex-box">
+      <%= link_to "Edit this student", edit_student_path(@student), class: "btn btn-secondary" %> &nbsp;&nbsp;
+      <%= button_to "Destroy this student", @student, method: :delete, class: "btn btn-secondary" %>
+    </div>
+  <%end %>
+  <br><br>
+  <% if current_user.user_type == "admin" %>
+    <%= link_to "Back to Home",  root_path %>
+  <%else %>
+    <%= link_to "Back to students", students_path %>
+  <%end %>
+</div>

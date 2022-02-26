@@ -1,0 +1,47 @@
+
+<% if flash[:alert] %>
+<div id="alert">
+  <%= flash[:alert] %>
+</div>
+<% end %>
+<%= form_with(model: enroll) do |form| %>
+  <% if enroll.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(enroll.errors.count, "error") %> prohibited this enroll from being saved:</h2>
+
+      <ul>
+        <% enroll.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <br>
+  <% if current_user.user_type == "instructor" %>
+    <% @student.each do |stu| %>
+      <%= stu.email %>
+      <%= link_to "enroll", enroll_saveEnroll_path(:course_id => @course.id, :student_id => stu.id) %><br>
+    <% end %>
+  
+ 
+  <% end %>
+  <% if current_user.user_type == "student" %>
+    <div class="field">
+      <p> Course Code : <%=@course.Course_Code %> </p>
+      <%= form.hidden_field :course_id, value: @course.id %>
+      <input name="course_id" type="hidden" value="<%= params[:course_id] %>" />
+    </div>
+
+    <div class="field">
+      <p> Student Email : <%= current_user.email %> </p>
+
+      <%= form.hidden_field :student_id, value: @s_id %>
+    </div>
+  <%end %>
+
+  <div>
+    <% if current_user.user_type!="instructor" %>
+      <%= form.submit "Enroll"%>
+    <% end %>
+  </div>
+<% end %>

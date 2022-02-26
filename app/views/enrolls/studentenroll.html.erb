@@ -1,0 +1,10 @@
+<br> </br>
+<%if @good == "true" %>
+  <p> Student has been enrolled successfully </p>
+<%elsif @good == "false" %>
+  <p> Error enrolling student or student already enrolled </p>
+<%elsif @good == "waitlisted" %>
+  <p> Student has been added to waitlist </p>
+<%else %>
+  <p> Error adding student to waitlist or student already added to waitlist </p>
+<% end %>

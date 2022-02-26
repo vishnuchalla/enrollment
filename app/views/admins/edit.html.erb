@@ -1,0 +1,10 @@
+<h1>Editing admin</h1>
+
+<%= render "form", admin: @admin, edit: @edit %>
+
+<br>
+
+<div>
+  <%= link_to "View Profile", @admin, {:class => "link-dark"}  %> |
+  <%= link_to "Back to Home", root_path, {:class => "link-dark"} %>
+</div>

@@ -1,0 +1,29 @@
+<p style="color: green"><%= notice %></p>
+
+
+<%= render @course %>
+
+<div>
+  <% if current_user.user_type == "student" %>
+
+  <%else %>
+    <div class="flex-box">
+        <%= link_to "Edit this course", edit_course_path(@course), class: "btn btn-secondary" %> &nbsp; &nbsp;
+        <%= button_to "Destroy this course", @course, method: :delete, class: "btn btn-secondary" %>
+    </div>
+  <%end %>
+  <br><br>
+  <% if current_user.user_type == "admin" %>
+    <%= link_to "Back to Home",  root_path %>
+  <%else %>
+    <%= link_to "Back to courses", courses_path , class: "btn btn-secondary" %> &nbsp; &nbsp; 
+  <%end %>
+  <% if current_user.user_type == "instructor" %>
+    <br></br>
+    <div class="flex-box">
+    <%= link_to "Enroll a student", new_enroll_path(:course_id => @course.id) , class: "btn btn-secondary" %>  &nbsp; &nbsp;
+    <%= link_to "Enrolled Students", students_path(:course_id => @course.id), class: "btn btn-secondary" %>
+  <%end %>
+  </div>
+  
+</div>

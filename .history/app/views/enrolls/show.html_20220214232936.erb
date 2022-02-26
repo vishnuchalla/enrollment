@@ -1,0 +1,15 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @enroll %>
+
+<div>
+ <% if current_user.user_type == "student" %>
+  <%= link_to "Edit this enroll", edit_enroll_path(@enroll) %> |
+  <%= link_to "Back to enrolls", enrolls_path %>
+
+  <%= button_to "Destroy this enroll", @enroll, method: :delete %>
+<% end %>
+<% if current_user.user_type == "instructor" %>
+  <p> Enrolled </p>
+<% end %>
+</div>

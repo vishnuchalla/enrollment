@@ -1,0 +1,18 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @instructor %>
+
+<div>
+  <% if current_user.user_type == "student" %>
+
+  <%else %>
+    <div class="flex-box">
+      <%= link_to "Edit this instructor", edit_instructor_path(@instructor), class: "btn btn-secondary" %> &nbsp;&nbsp;
+      <%= button_to "Destroy this instructor", @instructor, method: :delete, class: "btn btn-secondary" %>
+    </div>
+  <%end %>
+  <br><br>
+  <% if current_user.user_type == "admin" %>
+    <%= link_to "Back to Home",  root_path %>
+  
+</div>

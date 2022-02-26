@@ -1,0 +1,10 @@
+<h1>Editing student</h1>
+
+<%= render "form", student: @student %>
+
+<br>
+
+<div>
+  <%= link_to "Show this student", @student, {:class => "link-dark"} %> |
+  <%= link_to "Back to students", students_path, {:class => "link-dark"} %>
+</div>

@@ -1,0 +1,15 @@
+<br> </br>
+<% if flash[:alert] %>
+  <div id="alert">
+    <%= flash[:alert] %>
+  </div>
+<% end %>
+<h4>New enrollment</h4>
+
+<%= render "form", enroll: @enroll %>
+
+<br>
+
+
+
+

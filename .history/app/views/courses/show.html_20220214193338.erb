@@ -1,0 +1,29 @@
+<p style="color: green"><%= notice %></p>
+
+
+<%= render @course %>
+
+<div>
+  <% if current_user.user_type == "student" %>
+
+  <%else %>
+    <%= link_to "Edit this course", edit_course_path(@course) %> <br>
+    <%= button_to "Destroy this course", @course, method: :delete %>
+  <%end %>
+  <%= link_to "Back to courses", courses_path %>
+  <% if current_user.user_type == "instructor" %>
+  <%= link_to "Enroll a student", student_path(1) %>
+  <p> Enrolled Students </p>
+    <ol>
+    <% @students.each do |stu| %>
+        <li>
+          <%= link_to student_path(stu.student_id) do %>
+            <%= Student.where(:id => stu.student_id).pluck(:name).first %>
+          <% end %>
+        </li>
+    <% end %>
+  </ol>
+
+  <%end %>
+  
+</div>

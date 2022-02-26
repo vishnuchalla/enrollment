@@ -1,0 +1,36 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Students</h1>
+
+<div id="students">
+  <% @students.each do |student| %>
+    <% if current_user.user_type != "instructor" %>
+      <%= render student %>
+      <p>
+        <%= link_to "Show this student", student, {:class => "link-dark"} %>
+      </p>
+    <% end %>
+  <% end %>
+
+</div>
+
+<div>
+<% if current_user.user_type == "instructor" %>
+<p> Enrolled Students </p>
+    <ol>
+    <% @students.each do |stu| %>
+        <li>
+          <%= link_to student_path(stu.student_id, :course_id => @cid) do %>
+            <%= Student.where(:id => stu.student_id).pluck(:email).first %>
+            <%= link_to "Remove", students_test_path(:student_id => stu.student_id, :course_id => @cid) %>
+          <% end %>
+        </li>
+    <% end %>
+  </ol>
+<% end %>
+
+</div>
+
+<% if current_user.user_type != "instructor" %>
+<%= link_to "New student", new_student_path, {:class => "link-dark"} %>
+<% end %>

@@ -1,0 +1,85 @@
+<%= form_with(model: course) do |form| %>
+  <% if course.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(course.errors.count, "error") %> prohibited this course from being saved:</h2>
+
+      <ul>
+        <% course.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+  <% if current_user.user_type!="instructor" >
+    <%= form.label :Name, style: "display: block" %>
+    <%= form.text_field :Name %>
+  <% end %>
+  </div>
+
+  <div>
+    <%= form.label :Description, style: "display: block" %>
+    <%= form.text_field :Description %>
+  </div>
+
+  <div>
+    <%= form.label :Instructor_Name, style: "display: block" %>
+    <%= form.text_field :Instructor_Name %>
+  </div>
+
+  <div>
+    <%= form.label :Instructor_Email, style: "display: block" %>
+    <%= form.text_field :instructoremail %>
+  </div>
+
+  <div>
+    <%= form.label :Course_Code, style: "display: block" %>
+    <%= form.text_field :Course_Code %>
+  </div>
+
+  <div>
+    <%= form.label :Room, style: "display: block" %>
+    <%= form.text_field :Room %>
+  </div>
+
+  <div>
+    <%= form.label :Capacity, style: "display: block" %>
+    <%= form.number_field :Capacity %>
+  </div>
+
+  <div>
+    <%= form.label :Waitlist_Capacity, style: "display: block" %>
+    <%= form.number_field :Waitlist_Capacity %>
+  </div>
+
+  <div>
+    <%= form.label :Status, style: "display: block" %>
+    <%= form.select(:Status, options_for_select([["OPEN", "OPEN"]])) %>
+  </div>
+
+  <div>
+    <%= form.label :Weekday1, style: "display: block" %>
+    <%= form.select(:Weekday1, options_for_select([%w[Monday MON], %w[Tuesday TUE], %w[Wednesday WED], %w[Thursday THU], %w[Friday FRI]]), { include_blank: true}) %>
+  </div>
+
+  <div>
+    <%= form.label :Weekday2, style: "display: block" %>
+    <%= form.select(:Weekday2, options_for_select([%w[Monday MON], %w[Tuesday TUE], %w[Wednesday WED], %w[Thursday THU], %w[Friday FRI]]), { include_blank: true}) %>
+  </div>
+
+  <div>
+    <%= form.label :Start_Time, style: "display: block" %>
+    <%= form.time_field :Start_Time %>
+  </div>
+
+  <div>
+    <%= form.label :End_Time, style: "display: block" %>
+    <%= form.time_field :End_Time %>
+  </div>
+
+  <br>
+  <div>
+    <%= form.submit class: "btn btn-secondary" %>
+  </div>
+<% end %>

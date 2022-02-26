@@ -1,0 +1,52 @@
+<h1>Courses</h1>
+
+<div id="courses" class="table-responsive">
+  <table class="table table-hover table-sm table-bordered table-striped">
+    <thead class="table-dark">
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Description</th>
+      <th scope="col">Instructor Name</th>
+      <th scope="col">Weekday 1</th>
+      <th scope="col">Weekday 2</th>
+      <th scope="col">Start time</th>
+      <th scope="col">End time</th>
+      <th scope="col">Course Code</th>
+      <th scope="col">Capacity</th>
+      <th scope="col">Room</th>
+      <th scope="col">Status</th>
+      <% if current_user.user_type == "student" %>
+        <th scope="col">Enroll</th>
+      <% else %>
+        <th scope="col">Show</th>
+      <%end %>
+    </tr>
+    </thead>
+    <tbody>
+    <% @courses.each do |course| %>
+      <tr>
+        <td> <%= course.Name %> </td>
+        <td> <%= course.Description %> </td>
+        <td> <%= course.Instructor_Name %> </td>
+        <td> <%= course.Weekday1 %> </td>
+        <td> <%= course.Weekday2 %> </td>
+        <td> <%= course.Start_Time.strftime('%H:%M') %> </td>
+        <td> <%= course.End_Time.strftime('%H:%M') %> </td>
+        <td> <%= course.Course_Code %> </td>
+        <td> <%= course.Capacity %> </td>
+        <td> <%= course.Room %> </td>
+        <td> <%= course.Status %> </td>
+        <% if current_user.user_type == "student" %>
+          <td> <%= link_to "Enroll", new_enroll_path(:course_id => course.id, :student_id => current_user.id), {:class => "link-dark"}  %></td>
+        <% else %>
+          <td><%= link_to "Course Details", course, class: "btn btn-outline-dark" %></td>
+        <%end %>
+      </tr>
+    <%end %>
+    </tbody>
+  </table>
+</div>
+
+<% if current_user.user_type == "admin" or  current_user.user_type == "instructor" %>
+  <%= link_to "Add Course+", new_course_path, class: "btn btn-secondary" %>
+<%end %>

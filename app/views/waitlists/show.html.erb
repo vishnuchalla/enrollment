@@ -1,0 +1,11 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @waitlist %>
+
+<div>
+  <% if current_user.user_type == "student" %>
+    <%= link_to "Back to waitlists", waitlists_path, {:class => "link-dark"} %>
+  <%end %>
+  <%= link_to "Edit this waitlist", edit_waitlist_path(@waitlist), {:class => "link-dark"} %> |
+  <%= button_to "Destroy this waitlist", @waitlist, method: :delete %>
+</div>

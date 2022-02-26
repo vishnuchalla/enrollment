@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+<h1>New student</h1>
+
+<%= render "form", student: @student %>
+
+<br>
+
+<div>
+  <% if current_user.nil?  %>
+    <%= link_to "Back to SignUp", signup_path, {:class => "link-dark"} %>
+  <%elsif !current_user.nil? && current_user.user_type == "admin" %>
+    <%= link_to "Back to Home",  root_path, {:class => "link-dark"} %>
+  <%end %>
+</div>

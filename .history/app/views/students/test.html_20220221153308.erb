@@ -1,0 +1,29 @@
+
+<br></br>
+<h1> Students </h1>
+
+<div>
+<% if current_user.user_type == "instructor" %>
+<p> Enrolled Students </p>
+  <table class="table table-hover table-sm table-bordered table-striped">
+  <thead class="table-dark">
+    <tr>
+      <th scope="col">Email</th>
+      <th scope="col">Remove</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @students.each do |stu| %>
+        <tr>
+          <%= link_to student_path(stu.student_id, :course_id => @cid) do %>
+            <td><%= Student.where(:id => stu.student_id).pluck(:email).first %></td>
+            <td><%= link_to "Remove", student_test_path(:student_id => stu.student_id, :course_id => @cid) %></td>
+          <% end %>
+        </tr>
+    <% end %>
+    </tbody>
+    </table>
+  
+<% end %>
+
+</div>
